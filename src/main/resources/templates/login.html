@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciar sesión</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+		
+        body {
+            background-color: rgb(128, 255, 255);
+            font-family: Arial, sans-serif;
+            margin-bottom: 60px; /* Ajustado para el tamaño del pie de página */
+        }
+        .navbar {
+            background-color: #343a40;
+            padding: 10px 20px;
+        }
+        .navbar-brand {
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .navbar-nav .nav-link {
+            color: #fff;
+            margin-right: 20px;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #ddd;
+        }
+        .container {
+            margin-top: 30px;
+        }
+        .card {
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .card-header {
+            background-color: #343a40;
+            color: #fff;
+            font-weight: bold;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        .alert {
+            margin-top: 20px;
+        }
+        footer {
+            background-color: #343a40;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            margin-top: 5px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+        footer img {
+            height: 60px;
+            margin-right: 10px;
+        }
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="/">LibroMundo</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Iniciar Sesión</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/registro">Registrarme</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/nuestrosObjetivos">Objetivos</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Bienvenidos!</div>
+                    <div class="card-body">
+                        <!-- Mostrar el mensaje de error si existe -->
+                        <div th:if="${error}" class="alert alert-danger" role="alert" th:utext="${error}"></div>
+                        <form action="/login" method="post">
+                            <div class="form-group">
+                                <label for="correo">Correo:</label>
+                                <input type="text" class="form-control" id="correo" name="correo" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contraseña">Contraseña:</label>
+                                <input type="password" class="form-control" id="contraseña" name="contraseña" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Iniciar sesión</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="container">
+            <p>&copy;LibroMundo</p>
+            <p>David Santiago Barbosa Hernandez y Nelson Enrique Sierra Perez</p>
+            <p>Correo: <a href="mailto:nesierra@uts.edu.co">nesierra@uts.edu.co</a>, <a href="mailto:davidsbarbosa@uts.edu.co">davidsbarbosa@uts.edu.co</a></p>
+            <p>Fecha: 2024-06-06</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Unidades_Tecnol%C3%B3gicas_de_Santander_%28UTS%29_logo.png" alt="Logo UTS">
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+

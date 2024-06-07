@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Libros</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+		
+        body {
+            background-color: rgb(128, 255, 255);
+            font-family: Arial, sans-serif;
+        }
+        .navbar {
+            background-color: #343a40;
+            padding: 5px 15px; /* Reduce el padding vertical y horizontal */
+            justify-content: flex-start; /* Alinea el contenido a la izquierda */
+        }
+        .navbar-brand {
+            color: #fff;
+            font-size: 20px; /* Reduce el tamaño de fuente del título */
+            font-weight: bold;
+        }
+        .navbar-nav .nav-link {
+            color: #fff;
+            margin-right: 15px; /* Reduce el margen derecho de los enlaces */
+        }
+        .navbar-nav .nav-link:hover {
+            color: #ddd;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .card-body {
+            padding: 30px;
+        }
+        .btn-custom {
+            color: #fff;
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-custom:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        .btn-container {
+            margin-bottom: 20px;
+        }
+        table {
+            margin-top: 20px;
+        }
+        th, td {
+            vertical-align: middle !important;
+        }
+        
+        footer {
+            background-color: #343a40;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        footer img {
+            height: 60px;
+            margin-right: 10px;
+        }
+        
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" th:href="@{/indexAdmin}">Panel de Administrador</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/administradores/}">administradores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/editoriales/}">editoriales</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/usuarios/}">usuarios</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <a class="btn btn-outline-danger my-2 my-sm-0" th:href="@{/libros/cerrarSesion}">Cerrar Sesión</a>
+    </header>
+    <main class="content">
+        <div class="container">
+            <div class="card">
+                <div class="card-body">
+                    <h1>Listado de los libros del sistema</h1>
+                    <div class="btn-container d-flex justify-content-between align-items-center">                        
+                        <a th:href="@{/libros/add}" class="btn btn-primary">
+                            <i class="fas fa-user-plus mr-2"></i> Agregar libro
+                        </a>
+                    </div>
+                    <div th:switch="${libros}">
+                        <div th:case="null">
+                            <h2 class="text-center">No se encontraron registros</h2>
+                        </div>
+                        <div th:case="*">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+											<th>Imagen</th>
+                                            <th>Nombre</th>
+                                            <th>Reseña</th>
+                                            <th>Autor</th>
+                                            <th>Existencias</th>
+                                            <th>Editorial</th>
+                                            <th colspan="2" class="text-center">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="libro : ${libros}">
+											<td>
+											    <img th:src="${libro.imagenUrl}" alt="Imagen del libro" width="100">
+											</td>
+                                            <td th:text="${libro.nombre}"></td>
+                                            <td th:text="${libro.reseña}"></td>
+                                            <td th:text="${libro.autor}"></td>
+                                            <td th:text="${libro.cantidad}"></td>
+                                            <td>
+                                                <ul>
+                                                    <li th:each="editorial : ${libro.editorial}">
+                                                        <span th:text="${editorial.nombre}"></span>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                            
+                                            <td class="text-center">
+                                                <a th:href="@{/libros/edit/{id}(id=${libro.id})}" class="btn btn-custom">
+                                                    <i class="fas fa-user-edit"></i>
+                                                </a>
+                                            </td>
+                                            <td class="text-center">
+                                                <a th:href="@{/libros/delete/{id}(id=${libro.id})}" class="btn btn-custom">
+                                                    <i class="fas fa-user-times"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+	<footer>
+	        <p>&copy;LibroMundo</p>
+	        <p>David Santiago Barbosa Hernandez y Nelson Enrique Sierra Perez</p>
+	        <p>Correo: <a href="mailto:nesierra@uts.edu.co">nesierra@uts.edu.co</a>, <a href="mailto:davidsbarbosa@uts.edu.co">davidsbarbosa@uts.edu.co</a></p>
+	        <p>Fecha: 2024-06-06</p>
+	        <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Unidades_Tecnol%C3%B3gicas_de_Santander_%28UTS%29_logo.png" alt="Logo UTS">
+	    </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+

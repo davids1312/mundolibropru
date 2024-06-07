@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Préstamos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <style>
+		
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: rgb(128, 255, 255); /* Color de fondo */
+        }
+		
+        main {
+            flex: 1;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px; /* Margen para separar del header y del footer */
+        }
+        .table-responsive {
+            margin-bottom: 10px; /* Añadir espacio para separar del footer */
+        }
+        footer {
+            background-color: #343a40;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 30px;
+        }
+        footer img {
+            height: 60px; /* Aumentar tamaño del logo */
+            margin-right: 10px;
+        }
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" th:href="@{/indexUser}" href="#">LibroMundo</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/prestamos}" href="#">Mis préstamos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/usuarios/nuestrosObjetivosUsuario}">Sobre Nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/usuarios/edit/{id}(id=${usuario.id})}">Editar Usuario</a>
+                    </li>
+                </ul>
+                <a class="btn btn-outline-danger my-2 my-sm-0" th:href="@{/usuarios/cerrarSesion}">Cerrar Sesión</a>
+            </div>
+        </nav>
+    </header>
+    
+    <main class="container mt-4">
+        <h2 class="mb-4">Listado de Préstamos</h2>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Imagen</th>
+                        <th>Nombre</th>
+                        <th>Reseña</th>
+                        <th>Autor</th>
+                        <th>Fecha de Préstamo</th>
+                        <th>Fecha de Devolución</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="prestamo, iterStatus : ${prestamos}">
+                        <td>
+                            <img th:src="${libros[iterStatus.index] != null ? libros[iterStatus.index].imagenUrl : '/default-image.jpg'}" alt="Imagen del libro" width="100">
+                        </td>
+                        <td th:text="${libros[iterStatus.index] != null ? libros[iterStatus.index].nombre : 'Desconocido'}"></td>
+                        <td th:text="${libros[iterStatus.index] != null ? libros[iterStatus.index].reseña : 'Desconocido'}"></td>
+                        <td th:text="${libros[iterStatus.index] != null ? libros[iterStatus.index].autor : 'Desconocido'}"></td>
+                        <td th:text="${#dates.format(prestamo.fechaPrestamo, 'dd/MM/yyyy')}"></td>
+                        <td th:text="${#dates.format(prestamo.fechaDevolucion, 'dd/MM/yyyy')}"></td>
+                        <td>
+                            <form th:action="@{/prestamos/devolver/{idPrestamo}(idPrestamo=${prestamo.id})}" method="post">
+                                <button type="submit" class="btn btn-primary">Devolver</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; LibroMundo</p>
+        <p>David Santiago Barbosa Hernandez y Nelson Enrique Sierra Perez</p>
+        <p>Correo: <a href="mailto:nesierra@uts.edu.co">nesierra@uts.edu.co</a>, <a href="mailto:davidsbarbosa@uts.edu.co">davidsbarbosa@uts.edu.co</a></p>
+        <p>Fecha: 2024-06-06</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Unidades_Tecnol%C3%B3gicas_de_Santander_%28UTS%29_logo.png" alt="Logo UTS">
+    </footer>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+		
+        body {
+            background-color: rgb(128, 255, 255);
+            font-family: Arial, sans-serif;
+        }
+        .navbar {
+            background-color: #343a40;
+            padding: 10px 20px;
+        }
+        .navbar-brand {
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .navbar-nav .nav-link {
+            color: #fff;
+            margin-right: 20px;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #ddd;
+        }
+        .container {
+            margin-top: 30px;
+            border-radius: 8px;
+            background-color: white;
+            padding: 20px;
+        }
+        .modal-header {
+            background-color: #007bff;
+            color: white;
+        }
+        footer {
+            background-color: #343a40;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 30px;
+        }
+        footer img {
+            height: 60px; /* Aumentar tamaño del logo */
+            margin-right: 10px;
+        }
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="/">LibroMundo</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Iniciar Sesión</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/registro">Registrarme</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/nuestrosObjetivos">Objetivos</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h2>Registro de Usuario</h2>
+        <form th:action="@{/registroUsuario}" th:object="${usuario}" method="post">
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" class="form-control" id="nombre" th:field="*{nombre}" required>
+            </div>
+            <div class="form-group">
+                <label for="apellido">Apellido:</label>
+                <input type="text" class="form-control" id="apellido" th:field="*{apellido}" required>
+            </div>
+            <div class="form-group">
+                <label for="telefono">Teléfono:</label>
+                <input type="text" class="form-control" id="telefono" th:field="*{telefono}" required>
+            </div>
+            <div class="form-group">
+                <label for="correo">Correo:</label>
+                <input type="email" class="form-control" id="correo" th:field="*{correo}" required>
+            </div>
+            <div class="form-group">
+                <label for="contraseña">Contraseña:</label>
+                <input type="password" class="form-control" id="contraseña" th:field="*{contraseña}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Registrar Usuario</button>
+        </form>
+
+        <hr>
+
+        <h2>Registro de Administrador</h2>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registroAdministradorModal">
+            Registrar Administrador
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="registroAdministradorModal" tabindex="-1" role="dialog" aria-labelledby="registroAdministradorModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="registroAdministradorModalLabel">Registro de Administrador</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form th:action="@{/registroAdministrador}" th:object="${administrador}" method="post">
+                            <div class="form-group">
+                                <label for="nombre">Nombre:</label>
+                                <input type="text" class="form-control" id="nombre" th:field="*{nombre}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="apellido">Apellido:</label>
+                                <input type="text" class="form-control" id="apellido" th:field="*{apellido}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="telefono">Teléfono:</label>
+                                <input type="text" class="form-control" id="telefono" th:field="*{telefono}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="correo">Correo:</label>
+                                <input type="email" class="form-control" id="correo" th:field="*{correo}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contraseña">Contraseña:</label>
+                                <input type="password" class="form-control" id="contraseña" th:field="*{contraseña}" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Registrar Administrador</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; LibroMundo</p>
+        <p>David Santiago Barbosa Hernandez y Nelson Enrique Sierra Perez</p>
+        <p>Correo: <a href="mailto:nesierra@uts.edu.co">nesierra@uts.edu.co</a>, <a href="mailto:davidsbarbosa@uts.edu.co">davidsbarbosa@uts.edu.co</a></p>
+        <p>Fecha: 2024-06-06</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Unidades_Tecnol%C3%B3gicas_de_Santander_%28UTS%29_logo.png" alt="Logo UTS">
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+

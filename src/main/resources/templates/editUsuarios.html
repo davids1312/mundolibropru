@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Usuario</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+		
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: rgb(128, 255, 255); /* Color de fondo */
+        }
+        main {
+            flex: 1;
+        }
+        .container {
+            margin-bottom: 20px; /* Añadir espacio para separar del footer */
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            background-color: #343a40;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 30px;
+        }
+        footer img {
+            height: 60px; /* Aumentar tamaño del logo */
+            margin-right: 10px;
+        }
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" th:href="@{/indexUser}" href="#">LibroMundo</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/prestamos}" href="#">Mis préstamos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/usuarios/nuestrosObjetivosUsuario}">Sobre Nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/usuarios/edit/{id}(id=${usuario.id})}">Editar Usuario</a>
+                    </li>
+                </ul>
+                <a class="btn btn-outline-danger my-2 my-sm-0" th:href="@{/usuarios/cerrarSesion}">Cerrar Sesión</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mt-5">
+        <h2>Editar Usuario</h2>
+        <div class="form-container">
+            <form th:action="@{/usuarios/edit}" th:object="${usuario}" method="post">
+                <input type="hidden" th:field="*{id}" name="id"/>
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" class="form-control" id="nombre" th:field="*{nombre}" required>
+                </div>
+                <div class="form-group">
+                    <label for="apellido">Apellido:</label>
+                    <input type="text" class="form-control" id="apellido" th:field="*{apellido}" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Teléfono:</label>
+                    <input type="text" class="form-control" id="telefono" th:field="*{telefono}" required>
+                </div>
+                <div class="form-group">
+                    <label for="correo">Correo:</label>
+                    <input type="email" class="form-control" id="correo" th:field="*{correo}" required>
+                </div>
+                <div class="form-group">
+                    <label for="contraseña">Contraseña:</label>
+                    <input type="text" class="form-control" id="contraseña" th:field="*{contraseña}" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                <a th:href="@{/indexUser}" class="btn btn-cancel">
+                    <i class="fas fa-times-circle mr-2"></i>Atras
+                </a>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; LibroMundo</p>
+        <p>David Santiago Barbosa Hernandez y Nelson Enrique Sierra Perez</p>
+        <p>Correo: <a href="mailto:nesierra@uts.edu.co">nesierra@uts.edu.co</a>, <a href="mailto:davidsbarbosa@uts.edu.co">davidsbarbosa@uts.edu.co</a></p>
+        <p>Fecha: 2024-06-06</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Unidades_Tecnol%C3%B3gicas_de_Santander_%28UTS%29_logo.png" alt="Logo UTS">
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
